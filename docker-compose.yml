@@ -4,12 +4,12 @@ services:
     container_name: hidropuga-shiny
     restart: unless-stopped
     ports:
-      - "${APP_PORT}:3838"
+      - "3838:3838"
     environment:
-      - TZ=${TZ}
+      - TZ=America/Mexico_City
     volumes:
-      - ${APP_DIR}:/srv/shiny-server
-      - ${LOG_DIR}:/var/log/shiny-server
+      - /root/apps/hidropuga/app:/srv/shiny-server
+      - /root/apps/hidropuga/logs:/var/log/shiny-server
     command: >
       bash -lc "R -e \"options(repos='https://cloud.r-project.org');
       pkgs <- c('shiny','dplyr');
