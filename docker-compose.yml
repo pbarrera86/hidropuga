@@ -4,7 +4,7 @@ services:
     container_name: hidropuga-shiny
     restart: unless-stopped
     ports:
-      - "3838:3838"
+      - "3839:3838"
     environment:
       - TZ=America/Mexico_City
     volumes:
