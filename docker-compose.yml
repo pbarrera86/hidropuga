@@ -1,18 +1,14 @@
 services:
   hidropuga-shiny:
-    image: rocker/shiny:4.4.1
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: hidropuga-shiny
     restart: unless-stopped
     ports:
-      - "3839:3838"
+      - "${APP_PORT}:3838"
     environment:
-      - TZ=America/Mexico_City
+      - TZ=${TZ}
     volumes:
-      - /root/apps/hidropuga/app:/srv/shiny-server
-      - /root/apps/hidropuga/logs:/var/log/shiny-server
-    command: >
-      bash -lc "R -e \"options(repos='https://cloud.r-project.org');
-      pkgs <- c('shiny','dplyr');
-      inst <- rownames(installed.packages());
-      miss <- setdiff(pkgs, inst);
-      if(length(miss)) install.packages(miss)\" && shiny-server"
+      - ${APP_DIR}:/srv/shiny-server
+      - ${LOG_DIR}:/var/log/shiny-server
