@@ -1,5 +1,4 @@
 FROM rocker/shiny:4.4.1
-
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=America/Mexico_City
 
@@ -17,13 +16,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libpng-dev \
     libjpeg-dev \
     libtiff5-dev \
+    libmariadb-dev \
     ca-certificates \
     curl \
     wget \
     fonts-dejavu-core \
     && rm -rf /var/lib/apt/lists/*
 
-RUN R -e "options(repos='https://cloud.r-project.org'); install.packages(c('shiny','dplyr','shinyjs','DT','emayili', 'DBI','RMySQL','sodium'), Ncpus = parallel::detectCores())"
+RUN R -e "options(repos='https://cloud.r-project.org'); install.packages(c(\
+  'shiny','dplyr','shinyjs','DT','emayili',\
+  'DBI','RMySQL','sodium','jsonlite'\
+), Ncpus = parallel::detectCores())"
 
 COPY shiny-server.conf /etc/shiny-server/shiny-server.conf
 
@@ -31,5 +34,4 @@ RUN mkdir -p /srv/shiny-server /var/log/shiny-server && \
     chown -R shiny:shiny /srv/shiny-server /var/log/shiny-server /etc/shiny-server
 
 EXPOSE 3838
-
 CMD ["shiny-server"]
