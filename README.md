@@ -1,14 +1,18 @@
 # HidroPuga
 
-Despliegue de HidroPuga con Dockerfile + Docker Compose en Dokploy.
+Despliegue profesional de HidroPuga con Dockerfile + Docker Compose en Dokploy.
 
 ## Archivos del repo
 - Dockerfile
 - docker-compose.yml
+- shiny-server.conf
 
-## Carpeta esperada en el servidor
+## Archivos de la app en el servidor
 - /root/apps/hidropuga/app/app.R
 - /root/apps/hidropuga/logs
 
-## Puerto
-Configurado mediante APP_PORT
+## Variables esperadas en Dokploy
+- APP_PORT
+- TZ
+- APP_DIR
+- LOG_DIR
