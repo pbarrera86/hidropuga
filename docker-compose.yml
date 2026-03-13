@@ -5,8 +5,8 @@ services:
       dockerfile: Dockerfile
     container_name: hidropuga-shiny
     restart: unless-stopped
-    ports:
-      - "${APP_PORT}:3838"
+    expose:
+      - "3838"
     environment:
       - TZ=${TZ}
     volumes:
