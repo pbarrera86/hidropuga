@@ -8,14 +8,27 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libssl-dev \
     libxml2-dev \
     zlib1g-dev \
+    libfontconfig1-dev \
+    libcairo2-dev \
+    libxt-dev \
+    libharfbuzz-dev \
+    libfribidi-dev \
+    libfreetype6-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libtiff5-dev \
     ca-certificates \
+    curl \
+    wget \
     fonts-dejavu-core \
     && rm -rf /var/lib/apt/lists/*
 
-RUN R -e "options(repos='https://cloud.r-project.org'); install.packages(c('shiny','dplyr'))"
+RUN R -e "options(repos='https://cloud.r-project.org'); install.packages(c('shiny','dplyr'), Ncpus = parallel::detectCores())"
+
+COPY shiny-server.conf /etc/shiny-server/shiny-server.conf
 
 RUN mkdir -p /srv/shiny-server /var/log/shiny-server && \
-    chown -R shiny:shiny /srv/shiny-server /var/log/shiny-server
+    chown -R shiny:shiny /srv/shiny-server /var/log/shiny-server /etc/shiny-server
 
 EXPOSE 3838
 
