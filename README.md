@@ -1,16 +1,14 @@
 # HidroPuga
 
-Servicio Docker Compose para correr la app Shiny de HidroPuga en Dokploy.
+Despliegue de HidroPuga con Dockerfile + Docker Compose en Dokploy.
 
-## Carpetas esperadas en el servidor
+## Archivos del repo
+- Dockerfile
+- docker-compose.yml
 
-- /root/apps/hidropuga/app
+## Carpeta esperada en el servidor
+- /root/apps/hidropuga/app/app.R
 - /root/apps/hidropuga/logs
 
-## Archivo principal de la app
-
-- /root/apps/hidropuga/app/app.R
-
-## Despliegue
-
-Dokploy despliega usando el archivo `docker-compose.yml`.
+## Puerto
+Configurado mediante APP_PORT
