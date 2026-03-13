@@ -23,7 +23,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     fonts-dejavu-core \
     && rm -rf /var/lib/apt/lists/*
 
-RUN R -e "options(repos='https://cloud.r-project.org'); install.packages(c('shiny','dplyr'), Ncpus = parallel::detectCores())"
+RUN R -e "options(repos='https://cloud.r-project.org'); install.packages(c('shiny','dplyr','shinyjs','DT','emayili', 'DBI','RMySQL','sodium'), Ncpus = parallel::detectCores())"
 
 COPY shiny-server.conf /etc/shiny-server/shiny-server.conf
 
