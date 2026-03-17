@@ -1,7 +1,9 @@
 FROM rocker/shiny:4.4.1
+
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=America/Mexico_City
-ARG CACHE_BUST=4
+ARG CACHE_BUST=5
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libcurl4-openssl-dev \
     libssl-dev \
@@ -18,17 +20,24 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libtiff5-dev \
     libmariadb-dev \
     libsodium-dev \
+    libpq-dev \
     ca-certificates \
     curl \
     wget \
     fonts-dejavu-core \
     && rm -rf /var/lib/apt/lists/*
+
 RUN R -e "options(repos='https://cloud.r-project.org'); install.packages(c(\
-  'shiny','dplyr','shinyjs','DT','emayili',\
-  'DBI','RMySQL','sodium','jsonlite'\
+'shiny','dplyr','shinyjs','DT','emayili',\
+'DBI','RMySQL','RPostgres','pool',\
+'sodium','jsonlite','plumber','digest','httr','openssl',\
+'glue','dotenv','later','promises'\
 ), Ncpus = parallel::detectCores())"
+
 COPY shiny-server.conf /etc/shiny-server/shiny-server.conf
+
 RUN mkdir -p /srv/shiny-server /var/log/shiny-server && \
     chown -R shiny:shiny /srv/shiny-server /var/log/shiny-server /etc/shiny-server
+
 EXPOSE 3838
 CMD ["shiny-server"]
