@@ -39,5 +39,9 @@ COPY shiny-server.conf /etc/shiny-server/shiny-server.conf
 RUN mkdir -p /srv/shiny-server /var/log/shiny-server && \
     chown -R shiny:shiny /srv/shiny-server /var/log/shiny-server /etc/shiny-server
 
+COPY dokploy-entrypoint.sh /usr/local/bin/hidropuga-entrypoint
+RUN chmod 0755 /usr/local/bin/hidropuga-entrypoint
+ENTRYPOINT ["/usr/local/bin/hidropuga-entrypoint"]
+
 EXPOSE 3838
 CMD ["shiny-server"]
