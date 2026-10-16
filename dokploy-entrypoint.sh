@@ -8,4 +8,7 @@ chmod 0640 /run/hidropuga/config.rds
 if [ -f /srv/shiny-server/private/worker.R ]; then
   runuser -u shiny -- Rscript --vanilla /srv/shiny-server/private/worker.R >> /var/log/shiny-server/hidropuga-worker.log 2>&1 &
 fi
+if [ -f /srv/shiny-server/private/webhook_worker.R ]; then
+  runuser -u shiny -- Rscript --vanilla /srv/shiny-server/private/webhook_worker.R >> /var/log/shiny-server/hidropuga-webhook.log 2>&1 &
+fi
 exec "$@"
